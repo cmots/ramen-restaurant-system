@@ -26,6 +26,7 @@ public interface UserService {
 
     /**
      * if customer has 10 stamps, set it 0
+     * use DataService.getUserByID & DataService.updateUser
      * @author: cmots
      * @param userID the 8-digits userID
      * @return true: succeed;   false: stamps number < 10
@@ -34,7 +35,7 @@ public interface UserService {
 
     /**
      * let user's stamps number add 1.
-     * use DataService.getUserByID & DataService.updateUser here
+     * use DataService.getUserByID & DataService.updateUser
      * @param userID the 8-digits userID
      * @return
      */
