@@ -8,7 +8,7 @@ public interface RamenService {
      * Get add-ons information
      * use the second constructor in Addon
      * use DataService.getAddonInfo
-     * !! If any item is not available, set it cost -1
+     * !! If any item is not available, its cost is -1
      * @param
      * @return add-ons cost information
      */

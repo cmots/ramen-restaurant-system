@@ -1,4 +1,4 @@
-import java.sql.Time;
+import java.util.Date;
 
 /**
  * @author: CST
@@ -37,9 +37,9 @@ public class Bill {
      */
     private float price;
 
-    private Time time;
+    private Date time;
 
-    public Bill(Ramen ramen, Addon addon, boolean takeAway, boolean login, boolean useStamp, float price, Time time) {
+    public Bill(Ramen ramen, Addon addon, boolean takeAway, boolean login, boolean useStamp, float price, Date time) {
         this.ramen = ramen;
         this.addon = addon;
         this.takeAway = takeAway;
@@ -102,11 +102,11 @@ public class Bill {
         this.price = price;
     }
 
-    public Time getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 }
