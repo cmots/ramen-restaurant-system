@@ -62,8 +62,12 @@ public class DataClass implements DataService {
     public int getLastUserID() {
         int userID;
         ArrayList<User> user = readUserInfo();
-        userID = user.get(user.size() - 1).getUserID();
-        return userID;
+        if (user.size() == 0) {
+            return 10000000;
+        } else {
+            userID = user.get(user.size() - 1).getUserID();
+            return userID;
+        }
     }
 
     /**
@@ -159,7 +163,7 @@ public class DataClass implements DataService {
      * @return the arraylist that stores all the User entities
      */
     public ArrayList<User> readUserInfo() {
-        String path = "src/information/UserInfo.txt";
+        String path = "information/UserInfo.txt";
         ArrayList<User> user = new ArrayList<User>();
         int userID;
         String firstName;
@@ -206,7 +210,7 @@ public class DataClass implements DataService {
      * @return the addon information
      */
     public Addon readAddonInfo() {
-        String path = "src/information/AddonInfo.txt";
+        String path = "information/AddonInfo.txt";
         try {
             File filename = new File(path);
             BufferedReader br = new BufferedReader(new FileReader(filename));
@@ -232,7 +236,7 @@ public class DataClass implements DataService {
      * @return the arraylist that stores all the Bill entities
      */
     public ArrayList<Bill> readBillInfo() {
-        String path = "src/information/BillInfo.txt";
+        String path = "information/BillInfo.txt";
         String[] str = new String[5];
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         ArrayList<Bill> bills = new ArrayList<Bill>();
@@ -306,7 +310,7 @@ public class DataClass implements DataService {
      *             if false, write the info from the beginning of the file
      */
     public void writeUserInfo(User user, boolean bo) {
-        String path = "src/information/UserInfo.txt";
+        String path = "information/UserInfo.txt";
         try {
             File file = new File(path);
             FileWriter fw = new FileWriter(file, bo);
@@ -327,7 +331,7 @@ public class DataClass implements DataService {
      * if failed, return false
      */
     public boolean writeAddonInfo(Addon addon) {
-        String path = "src/information/AddonInfo.txt";
+        String path = "information/AddonInfo.txt";
         try {
             File file = new File(path);
             FileWriter fw = new FileWriter(file, false);
@@ -350,7 +354,7 @@ public class DataClass implements DataService {
      * if failed, return false
      */
     public boolean writeBillInfo(Bill bill) {
-        String path = "src/information/BillInfo.txt";
+        String path = "information/BillInfo.txt";
         try {
             File file = new File(path);
             FileWriter fw = new FileWriter(file, true);

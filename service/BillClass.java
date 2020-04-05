@@ -1,10 +1,12 @@
+import java.util.Date;
+
 /**
  * @author:
  * @date:
  * @description:
  */
 
-public class BillClass implements BillService{
+public class BillClass implements BillService {
     /**
      * 1. calculate price in bill.addon,
      * use RamenService.getAddonInfo to get cost of every items in add-on
@@ -22,6 +24,27 @@ public class BillClass implements BillService{
      */
     @Override
     public Bill pay(int userID, Bill bill) {
-        return null;
+        RamenClass ramenService = new RamenClass();
+        UserClass userService = new UserClass();
+
+        DataClass dataService = new DataClass();
+        Addon addon = ramenService.getAddonInfo();
+        bill.setPrice((float) 9.99 + addon.getNoriCost() * addon.getExtraNori() + addon.getEggCost() * addon.getExtraEgg()
+                + addon.getBambooCost() * addon.getBamboo() + addon.getChashuCost() * addon.getExtraChashu());
+        if (bill.isLogin() == true) {
+            User user = userService.login(userID);
+        }
+        /*3. if bill.useStamp == true, use UserService.useStamps and judge the return value*/
+
+        if (bill.isLogin() == true && bill.isUseStamp() == true) {
+            boolean isUseStamps = userService.useStamps(userID);
+        }
+        if (bill.isLogin() == true && (bill.isUseStamp() == false || userService.useStamps(userID) == false)) {
+            userService.updateStamps(userID);
+        }
+        bill.setTime(new Date());
+
+        dataService.addBill(bill);
+        return bill;
     }
 }

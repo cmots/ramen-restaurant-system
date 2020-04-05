@@ -1,3 +1,4 @@
+
 /**
  * @author: Luming Xiao
  * @description: GUI of ding opions windows
@@ -37,7 +38,7 @@ public class DingOpions extends JFrame {
 		});
 	}
 	
-	public void runOpions() {
+	public void runOpions(Bill bill) {
 		try {
 			DingOpions frame = new DingOpions();
 			frame.setVisible(true);
@@ -47,11 +48,12 @@ public class DingOpions extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
+					bill.setTakeAway(false);
 					flag = true;
 					System.out.println(flag);
 					LoyaltyNumber loyalty = new LoyaltyNumber();
 					frame.setVisible(false);
-					loyalty.runLoyalty();
+					loyalty.runLoyalty(bill);
 				}
 			});
 
@@ -60,11 +62,12 @@ public class DingOpions extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
+					bill.setTakeAway(true);
 					flag = false;
 					System.out.println(flag);
 					LoyaltyNumber loyalty = new LoyaltyNumber();
 					frame.setVisible(false);
-					loyalty.runLoyalty();
+					loyalty.runLoyalty(bill);
 				}
 			});
 	/*		frame.button_3.addActionListener(new ActionListener() {

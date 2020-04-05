@@ -1,3 +1,4 @@
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -29,7 +30,7 @@ public class PaymentSuccess extends JFrame {
 			}
 		});
 	}
-	public void runPaySuccess() {
+	public void runPaySuccess(Bill bill) {
 		try {
 			PaymentSuccess frame = new PaymentSuccess();
 			frame.setVisible(true);
