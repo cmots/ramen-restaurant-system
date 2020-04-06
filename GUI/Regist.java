@@ -72,7 +72,7 @@ public class Regist extends JFrame {
                     User user = new User(0, firstname, lastname, email, telephone, 0);
                     User testUser = new UserClass().register(user);
                     if (testUser != null) {
-                        RegistSuccess success = new RegistSuccess();
+                        RegistSuccess success = new RegistSuccess(testUser.getUserID());
                         frame.setVisible(false);
                         success.runSuccess(testUser.getUserID(), bill);
                     } else {
@@ -91,7 +91,7 @@ public class Regist extends JFrame {
      * Create the frame.
      */
     public Regist() {
-        setTitle("Regist");
+        setTitle("Register");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(700, 300, 800, 500);
         contentPane = new JPanel();
@@ -100,32 +100,32 @@ public class Regist extends JFrame {
         contentPane.setLayout(null);
 
 
-        btnNewButton.setFont(new Font("����", Font.BOLD, 20));
+        btnNewButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
         btnNewButton.setBounds(113, 352, 204, 64);
         contentPane.add(btnNewButton);
 
 
-        btnNewButton_1.setFont(new Font("����", Font.BOLD, 20));
+        btnNewButton_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
         btnNewButton_1.setBounds(479, 352, 187, 64);
         contentPane.add(btnNewButton_1);
 
         JLabel lblNewLabel = new JLabel("First Name");
-        lblNewLabel.setFont(new Font("����", Font.BOLD, 20));
+        lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
         lblNewLabel.setBounds(113, 40, 131, 43);
         contentPane.add(lblNewLabel);
         textField = new JTextField();
-        textField.setFont(new Font("����", Font.BOLD, 20));
+        textField.setFont(new Font("Times New Roman", Font.BOLD, 20));
         textField.setBounds(424, 51, 175, 24);
         contentPane.add(textField);
         textField.setColumns(10);
 
 
         JLabel lblNewLabel_1 = new JLabel("Last Name");
-        lblNewLabel_1.setFont(new Font("����", Font.BOLD, 20));
+        lblNewLabel_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
         lblNewLabel_1.setBounds(113, 120, 105, 43);
         contentPane.add(lblNewLabel_1);
         textField_1 = new JTextField();
-        textField_1.setFont(new Font("����", Font.BOLD, 20));
+        textField_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
         textField_1.setBounds(424, 131, 175, 24);
         contentPane.add(textField_1);
         textField_1.setColumns(10);

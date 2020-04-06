@@ -13,79 +13,89 @@ import javax.swing.JLabel;
 
 public class PaymentSuccess extends JFrame {
 
-	private JPanel contentPane;
-	JButton btnNewButton_1 = new JButton("Confirm");
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PaymentSuccess frame = new PaymentSuccess();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	public void runPaySuccess(Bill bill) {
-		try {
-			PaymentSuccess frame = new PaymentSuccess();
-			frame.setVisible(true);
-			
-			frame.btnNewButton_1.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-					frame.setVisible(false);
-				}
-			});
+    private JPanel contentPane;
+    JButton btnNewButton_1 = new JButton("Confirm");
+
+    /**
+     * Launch the application.
+     */
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    PaymentSuccess frame = new PaymentSuccess(null, 0);
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void runPaySuccess(Bill bill,int userID) {
+        try {
+            PaymentSuccess frame = new PaymentSuccess(bill,userID);
+            frame.setVisible(true);
+
+            frame.btnNewButton_1.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // TODO Auto-generated method stub
+                    frame.setVisible(false);
+                }
+            });
 
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	/**
-	 * Create the frame.
-	 */
-	public PaymentSuccess() {
-		setTitle("Payment Success");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(700, 300, 800, 500);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("You have paid successfully!");
-		lblNewLabel.setFont(new Font("����", Font.BOLD, 25));
-		lblNewLabel.setBounds(76, 54, 576, 48);
-		contentPane.add(lblNewLabel);
-		
-		JLabel lblNewLabel_1 = new JLabel("We will give your meal quickly!");
-		lblNewLabel_1.setFont(new Font("����", Font.BOLD, 25));
-		lblNewLabel_1.setBounds(76, 126, 576, 58);
-		contentPane.add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_2 = new JLabel("Actual amount paid: aaa");
-		lblNewLabel_2.setFont(new Font("����", Font.BOLD, 25));
-		lblNewLabel_2.setBounds(76, 216, 576, 48);
-		contentPane.add(lblNewLabel_2);
-		
-		JLabel lblNewLabel_3 = new JLabel("Remainder virtual stamps:aaa");
-		lblNewLabel_3.setFont(new Font("����", Font.BOLD, 25));
-		lblNewLabel_3.setBounds(76, 301, 583, 48);
-		contentPane.add(lblNewLabel_3);
-		
-		
+    /**
+     * Create the frame.
+     */
+    public PaymentSuccess(Bill bill,int userID) {
+        setTitle("Payment Success");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(700, 300, 800, 500);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
 
-		btnNewButton_1.setFont(new Font("����", Font.BOLD, 20));
-		btnNewButton_1.setBounds(479, 352, 187, 64);
-		contentPane.add(btnNewButton_1);
-	}
+        JLabel lblNewLabel = new JLabel("You have paid successfully!");
+        lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 25));
+        lblNewLabel.setBounds(76, 54, 576, 48);
+        contentPane.add(lblNewLabel);
+
+        JLabel lblNewLabel_1 = new JLabel("We will give your meal quickly!");
+        lblNewLabel_1.setFont(new Font("Times New Roman", Font.BOLD, 25));
+        lblNewLabel_1.setBounds(76, 126, 576, 58);
+        contentPane.add(lblNewLabel_1);
+
+        float amountPaid = bill.getPrice();
+
+        JLabel lblNewLabel_2 = new JLabel("Actual amount paid: " + amountPaid);
+        lblNewLabel_2.setFont(new Font("Times New Roman", Font.BOLD, 25));
+        lblNewLabel_2.setBounds(76, 216, 576, 48);
+        contentPane.add(lblNewLabel_2);
+
+        JLabel lblNewLabel_3;
+        if(userID!=0) {
+            int stampsNo = new UserClass().login(userID).getStamp();
+
+            lblNewLabel_3 = new JLabel("Remainder virtual stamps: " + stampsNo);
+        }
+        else{
+            lblNewLabel_3 = new JLabel("You haven't login");
+        }
+        lblNewLabel_3.setFont(new Font("Times New Roman", Font.BOLD, 25));
+        lblNewLabel_3.setBounds(76, 301, 583, 48);
+        contentPane.add(lblNewLabel_3);
+
+        btnNewButton_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        btnNewButton_1.setBounds(479, 352, 187, 64);
+        contentPane.add(btnNewButton_1);
+    }
 }

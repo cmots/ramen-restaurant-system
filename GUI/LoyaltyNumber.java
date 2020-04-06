@@ -62,7 +62,7 @@ public class LoyaltyNumber extends JFrame {
                     if (testUser == null) {
                         //TODO
                     } else {
-                        Payment pay = new Payment();
+                        Payment pay = new Payment(testUser.getUserID());
                         frame.setVisible(false);
                         pay.runPayment(flag, testUser.getUserID(), bill);
                     }
@@ -76,7 +76,7 @@ public class LoyaltyNumber extends JFrame {
                     flag = false;
                     bill.setLogin(false);
                     System.out.println(flag);
-                    Payment pay = new Payment();
+                    Payment pay = new Payment(0);
                     frame.setVisible(false);
                     pay.runPayment(flag, 0, bill);
                 }
@@ -112,23 +112,23 @@ public class LoyaltyNumber extends JFrame {
         contentPane.setLayout(null);
 
         JLabel lblNewLabel = new JLabel("Would you like to log your loyalty number?");
-        lblNewLabel.setFont(new Font("����", Font.BOLD, 25));
+        lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 25));
         lblNewLabel.setBounds(85, 42, 598, 80);
         contentPane.add(lblNewLabel);
 
         textField = new JTextField();
-        textField.setFont(new Font("����", Font.BOLD, 20));
+        textField.setFont(new Font("Times New Roman", Font.BOLD, 20));
         textField.setBounds(85, 160, 598, 44);
         contentPane.add(textField);
         textField.setColumns(10);
 
 
-        btnNewButton.setFont(new Font("����", Font.BOLD, 20));
+        btnNewButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
         btnNewButton.setBounds(85, 327, 160, 54);
         contentPane.add(btnNewButton);
 
 
-        btnNewButton_1.setFont(new Font("����", Font.BOLD, 20));
+        btnNewButton_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
         btnNewButton_1.setBounds(523, 327, 160, 54);
         contentPane.add(btnNewButton_1);
 

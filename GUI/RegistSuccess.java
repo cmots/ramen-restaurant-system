@@ -28,7 +28,7 @@ public class RegistSuccess extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    RegistSuccess frame = new RegistSuccess();
+                    RegistSuccess frame = new RegistSuccess(0);
                     //		frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -39,7 +39,7 @@ public class RegistSuccess extends JFrame {
 
     public void runSuccess(int userID, Bill bill) {
         try {
-            RegistSuccess frame = new RegistSuccess();
+            RegistSuccess frame = new RegistSuccess(userID);
             frame.setVisible(true);
 
             frame.btnNewButton_1.addActionListener(new ActionListener() {
@@ -47,7 +47,7 @@ public class RegistSuccess extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // TODO Auto-generated method stub
-                    Payment pay = new Payment();
+                    Payment pay = new Payment(userID);
                     frame.setVisible(false);
                     pay.runPayment(true, userID, bill);
                 }
@@ -62,7 +62,7 @@ public class RegistSuccess extends JFrame {
     /**
      * Create the frame.
      */
-    public RegistSuccess() {
+    public RegistSuccess(int userID) {
         setTitle("Success!");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(700, 300, 800, 500);
@@ -72,17 +72,17 @@ public class RegistSuccess extends JFrame {
         contentPane.setLayout(null);
 
         JLabel lblNewLabel = new JLabel("You regist successful!");
-        lblNewLabel.setFont(new Font("����", Font.BOLD, 20));
+        lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
         lblNewLabel.setBounds(86, 74, 542, 74);
         contentPane.add(lblNewLabel);
 
-        JLabel lblNewLabel_1 = new JLabel("Your loyalty number is aaaaa!");//����������
-        lblNewLabel_1.setFont(new Font("����", Font.BOLD, 20));
+        JLabel lblNewLabel_1 = new JLabel("Your loyalty number is: " + userID + "!");
+
+        lblNewLabel_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
         lblNewLabel_1.setBounds(86, 212, 542, 74);
         contentPane.add(lblNewLabel_1);
 
-
-        btnNewButton_1.setFont(new Font("����", Font.BOLD, 20));
+        btnNewButton_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
         btnNewButton_1.setBounds(479, 352, 187, 64);
         contentPane.add(btnNewButton_1);
     }

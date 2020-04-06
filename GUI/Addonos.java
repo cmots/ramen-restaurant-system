@@ -4,25 +4,24 @@
  * @description: GUI of add onos windows
  */
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
 
 public class Addonos extends JFrame {
 
     private JPanel contentPane;
     JButton btnNewButton = new JButton("Confirm");
     JButton btnNewButton_1 = new JButton("Previous Level");
+
+    String[] listData = new String[]{"0", "1", "2", "3", "4", "5"};
+    final JComboBox<String> comboBox = new JComboBox<String>(listData);
+    final JComboBox<String> comboBox_1 = new JComboBox<String>(listData);
+    final JComboBox<String> comboBox_2 = new JComboBox<String>(listData);
+    final JComboBox<String> comboBox_3 = new JComboBox<String>(listData);
+    int a, b, c, d = 0;
 
     /**
      * Launch the application.
@@ -49,8 +48,11 @@ public class Addonos extends JFrame {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // TODO Auto-generated method stub
-                    Addon addon = new Addon(1, 2, 3, 4);
+                    a = frame.comboBox.getSelectedIndex();
+                    b = frame.comboBox_1.getSelectedIndex();
+                    c = frame.comboBox_2.getSelectedIndex();
+                    d = frame.comboBox_3.getSelectedIndex();
+                    Addon addon = new Addon(a, b, c, d);
                     bill.setAddon(addon);
                     DingOpions opions = new DingOpions();
                     frame.setVisible(false);
@@ -62,32 +64,11 @@ public class Addonos extends JFrame {
                 //previous level
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // TODO Auto-generated method stub
                     Order order = new Order();
                     frame.setVisible(false);
                     order.runOrder();
                 }
             });
-	/*		frame.button_3.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-					store_order or = new store_order();
-					frame.setVisible(false);
-					or.runor();
-				}
-			});
-			frame.button_4.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-					store_order_search oss = new store_order_search();
-					frame.setVisible(false);
-					oss.runoss();
-				}
-			});*/
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -108,71 +89,69 @@ public class Addonos extends JFrame {
         contentPane.setLayout(null);
 
         Addon addonInfo = new RamenClass().getAddonInfo();
+        float e = addonInfo.getBambooCost();
+        float f = addonInfo.getChashuCost();
+        float g = addonInfo.getEggCost();
+        float h = addonInfo.getNoriCost();
+        JLabel lblNewLabel = new JLabel("Extral Nori: ￡" + h);
+        JLabel lblNewLabel_1 = new JLabel("Extral Boiled Egg: ￡" + g);
+        JLabel lblNewLabel_2 = new JLabel("Extral Shoots: ￡" + e);
+        JLabel lblNewLabel_3 = new JLabel("Extral Chashu: ￡" + f);
 
-        // TODO
-        float a = addonInfo.getBambooCost();
-        float b = addonInfo.getChashuCost();
-        float c = addonInfo.getEggCost();
-        float d = addonInfo.getNoriCost();
-        //price == -1: invisible
-        if (a == -1) {
-			// invisible
+        if (e == -1) {
+            comboBox.setEnabled(false);
+        }
+        if (f == -1) {
+            comboBox_1.setEnabled(false);
+        }
+        if (g == -1) {
+            comboBox_2.setEnabled(false);
+        }
+        if (h == -1) {
+            comboBox_3.setEnabled(false);
         }
 
-        btnNewButton_1.setFont(new Font("����", Font.BOLD, 25));
+        btnNewButton_1.setFont(new Font("Times New Roman", Font.BOLD, 25));
         btnNewButton_1.setBounds(104, 352, 238, 69);
         contentPane.add(btnNewButton_1);
 
-
-        btnNewButton.setFont(new Font("����", Font.BOLD, 25));
+        btnNewButton.setFont(new Font("Times New Roman", Font.BOLD, 25));
         btnNewButton.setBounds(438, 352, 238, 69);
         contentPane.add(btnNewButton);
 
-        JLabel lblNewLabel = new JLabel("Extral Nori");
-        lblNewLabel.setFont(new Font("����", Font.BOLD, 20));
-        lblNewLabel.setBounds(104, 36, 209, 42);
+        lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        lblNewLabel.setBounds(104, 36, 230, 42);
         contentPane.add(lblNewLabel);
 
-        String[] listData = new String[]{"0", "1", "2", "3", "4", "5"};
-        final JComboBox<String> comboBox = new JComboBox<String>(listData);
-        comboBox.setFont(new Font("����", Font.BOLD, 20));
+        comboBox.setFont(new Font("Times New Roman", Font.BOLD, 20));
         comboBox.setBounds(429, 47, 152, 24);
         contentPane.add(comboBox);
 
-
-        JLabel lblNewLabel_1 = new JLabel("Extral Boiled Egg");
-        lblNewLabel_1.setFont(new Font("����", Font.BOLD, 20));
-        lblNewLabel_1.setBounds(104, 112, 195, 42);
+        lblNewLabel_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        lblNewLabel_1.setBounds(104, 112, 280, 42);
         contentPane.add(lblNewLabel_1);
 
-        final JComboBox<String> comboBox_1 = new JComboBox<String>(listData);
-        comboBox_1.setFont(new Font("����", Font.BOLD, 20));
+        comboBox_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
         comboBox_1.setBounds(429, 123, 152, 24);
         contentPane.add(comboBox_1);
 
-
-        JLabel lblNewLabel_2 = new JLabel("Extral Shoots");
-        lblNewLabel_2.setFont(new Font("����", Font.BOLD, 20));
-        lblNewLabel_2.setBounds(104, 188, 176, 42);
+        lblNewLabel_2.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        lblNewLabel_2.setBounds(104, 188, 230, 42);
         contentPane.add(lblNewLabel_2);
 
-        final JComboBox<String> comboBox_2 = new JComboBox<String>(listData);
-        comboBox_2.setFont(new Font("����", Font.BOLD, 20));
+        comboBox_2.setFont(new Font("Times New Roman", Font.BOLD, 20));
         comboBox_2.setBounds(429, 199, 152, 24);
         contentPane.add(comboBox_2);
 
 
-        JLabel lblNewLabel_3 = new JLabel("Extral Chashu");
-        lblNewLabel_3.setFont(new Font("����", Font.BOLD, 20));
-        lblNewLabel_3.setBounds(104, 262, 195, 42);
+        lblNewLabel_3.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        lblNewLabel_3.setBounds(104, 262, 230, 42);
         contentPane.add(lblNewLabel_3);
 
-        final JComboBox<String> comboBox_3 = new JComboBox<String>(listData);
-        comboBox_3.setFont(new Font("����", Font.BOLD, 20));
+
+        comboBox_3.setFont(new Font("Times New Roman", Font.BOLD, 20));
         comboBox_3.setBounds(429, 273, 152, 24);
         contentPane.add(comboBox_3);
-
-
     }
 
 }

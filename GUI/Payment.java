@@ -35,7 +35,7 @@ public class Payment extends JFrame {
             public void run() {
                 try {
                     //	rdbtnNewRadioButton.setEnabled(false);
-                    Payment frame = new Payment();
+                    Payment frame = new Payment(0);
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -46,7 +46,7 @@ public class Payment extends JFrame {
 
     public void runPayment(boolean flag, int userID, Bill bill) {
         try {
-            Payment frame = new Payment();
+            Payment frame = new Payment(userID);
             frame.rdbtnNewRadioButton.setEnabled(flag);
             frame.setVisible(true);
             User user = new UserClass().login(userID);
@@ -67,15 +67,15 @@ public class Payment extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // TODO Auto-generated method stub
-                    if (false) {
+                    if (rdbtnNewRadioButton_1.isSelected()) {
                         bill.setUseStamp(true);
                     } else {
                         bill.setUseStamp(false);
                     }
-					Bill returnBill=new BillClass().pay(userID, bill);
-					PaymentSuccess paySu = new PaymentSuccess();
+                    Bill returnBill = new BillClass().pay(userID, bill);
+                    PaymentSuccess paySu = new PaymentSuccess(bill, userID);
                     frame.setVisible(false);
-                    paySu.runPaySuccess(returnBill);
+                    paySu.runPaySuccess(returnBill, userID);
 
                 }
             });
@@ -89,7 +89,7 @@ public class Payment extends JFrame {
     /**
      * Create the frame.
      */
-    public Payment() {
+    public Payment(int userID) {
         setTitle("Payment");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(700, 300, 800, 500);
@@ -98,13 +98,13 @@ public class Payment extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        rdbtnNewRadioButton.setFont(new Font("����", Font.BOLD, 25));
+        rdbtnNewRadioButton.setFont(new Font("Times New Roman", Font.BOLD, 25));
         rdbtnNewRadioButton.setHorizontalAlignment(SwingConstants.LEFT);
         rdbtnNewRadioButton.setBounds(118, 46, 487, 103);
         contentPane.add(rdbtnNewRadioButton);
 
 
-        rdbtnNewRadioButton_1.setFont(new Font("����", Font.BOLD, 25));
+        rdbtnNewRadioButton_1.setFont(new Font("Times New Roman", Font.BOLD, 25));
         rdbtnNewRadioButton_1.setBounds(118, 154, 487, 103);
         contentPane.add(rdbtnNewRadioButton_1);
 
@@ -113,18 +113,25 @@ public class Payment extends JFrame {
         btnGroup1.add(rdbtnNewRadioButton);
         rdbtnNewRadioButton_1.setSelected(true);
 
-        JLabel lblNewLabel = new JLabel("You have aaa virtual stamps(\u65B9\u6CD5\u4E2D\u8F93\u5165)");
-        lblNewLabel.setFont(new Font("����", Font.BOLD, 20));
+        JLabel lblNewLabel;
+        if(userID!=0) {
+            int stampsNo = new UserClass().login(userID).getStamp();
+            lblNewLabel = new JLabel("You have " + stampsNo + " virtual stamps");
+        }
+        else{
+            lblNewLabel = new JLabel("You haven't login");
+        }
+        lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
         lblNewLabel.setBounds(118, 266, 487, 80);
         contentPane.add(lblNewLabel);
 
 
-        btnNewButton.setFont(new Font("����", Font.BOLD, 20));
+        btnNewButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
         btnNewButton.setBounds(113, 352, 204, 64);
         contentPane.add(btnNewButton);
 
 
-        btnNewButton_1.setFont(new Font("����", Font.BOLD, 20));
+        btnNewButton_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
         btnNewButton_1.setBounds(479, 352, 187, 64);
         contentPane.add(btnNewButton_1);
     }
