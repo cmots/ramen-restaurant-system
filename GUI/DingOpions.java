@@ -45,6 +45,7 @@ public class DingOpions extends JFrame {
 	public void runOpions(Bill bill) {
 		try {
 			DingOpions frame = new DingOpions();
+			frame.setLocationRelativeTo(null);
 			frame.setVisible(true);
 			
 			frame.btnNewButton.addActionListener(new ActionListener() {

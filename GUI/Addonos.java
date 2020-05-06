@@ -42,6 +42,7 @@ public class Addonos extends JFrame {
     public void runAddonos(Bill bill) {
         try {
             Addonos frame = new Addonos();
+            frame.setLocationRelativeTo(null);
             frame.setVisible(true);
 
             frame.btnNewButton.addActionListener(new ActionListener() {

@@ -1,6 +1,10 @@
 /**
  * @author: Luming Xiao
  * @description: GUI of payment
+ *
+ * @update: 2020-04-29 Jiaxuan Peng
+ *          corrected the setUseStamp() depending on isSelected()
+ *          (line 75-79)
  */
 
 import java.awt.BorderLayout;
@@ -47,6 +51,7 @@ public class Payment extends JFrame {
     public void runPayment(boolean flag, int userID, Bill bill) {
         try {
             Payment frame = new Payment(userID);
+            frame.setLocationRelativeTo(null);
             frame.rdbtnNewRadioButton.setEnabled(flag);
             frame.setVisible(true);
             User user = new UserClass().login(userID);
@@ -67,11 +72,13 @@ public class Payment extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // TODO Auto-generated method stub
-                    if (rdbtnNewRadioButton_1.isSelected()) {
+
+                    if (frame.rdbtnNewRadioButton.isSelected()) {
                         bill.setUseStamp(true);
-                    } else {
+                    } else if (rdbtnNewRadioButton_1.isSelected()) {
                         bill.setUseStamp(false);
                     }
+
                     Bill returnBill = new BillClass().pay(userID, bill);
                     PaymentSuccess paySu = new PaymentSuccess(bill, userID);
                     frame.setVisible(false);
@@ -114,11 +121,10 @@ public class Payment extends JFrame {
         rdbtnNewRadioButton_1.setSelected(true);
 
         JLabel lblNewLabel;
-        if(userID!=0) {
+        if (userID != 0) {
             int stampsNo = new UserClass().login(userID).getStamp();
             lblNewLabel = new JLabel("You have " + stampsNo + " virtual stamps");
-        }
-        else{
+        } else {
             lblNewLabel = new JLabel("You haven't login");
         }
         lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));

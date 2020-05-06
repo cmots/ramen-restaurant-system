@@ -2,6 +2,9 @@
 /**
  * @author: Luming Xiao
  * @description: GUI of order windows
+ *
+ * @updated: 2020-05-04 Qi Lin
+ *           Corrected some spelling mistakes in the name of item options
  */
 
 import javax.swing.*;
@@ -14,17 +17,17 @@ public class Order extends JFrame {
 
     private JPanel contentPane;
     private JLabel lblNewLabel;
-    JButton btnNewButton = new JButton("Add-onos");
+    JButton btnNewButton = new JButton("Add-ons");
     JButton btnNewButton_1 = new JButton("Confirm");
-    JRadioButton rdbtnNewRadioButton = new JRadioButton("Tonkostu");
+    JRadioButton rdbtnNewRadioButton = new JRadioButton("Tonkotsu");
     JRadioButton rdbtnNewRadioButton_0 = new JRadioButton("Shoyu");
     JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Shio");
     JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Soft");
     JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("Medium");
     JRadioButton rdbtnNewRadioButton_4 = new JRadioButton("Firm");
-    JRadioButton rdbtnNewRadioButton_5 = new JRadioButton("No");
-    JRadioButton rdbtnNewRadioButton_6 = new JRadioButton("A little");
-    JRadioButton rdbtnNewRadioButton_7 = new JRadioButton("A lot");
+    JRadioButton rdbtnNewRadioButton_5 = new JRadioButton("No please");
+    JRadioButton rdbtnNewRadioButton_6 = new JRadioButton("Just a little");
+    JRadioButton rdbtnNewRadioButton_7 = new JRadioButton("A lot!");
     JCheckBox chckbxNewCheckBox = new JCheckBox("Nori");
     JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Chashu");
     JCheckBox chckbxNewCheckBox_2 = new JCheckBox("Boiled egg");
@@ -56,6 +59,7 @@ public class Order extends JFrame {
     public void runOrder() {
         try {
             Order frame = new Order();
+            frame.setLocationRelativeTo(null);
             frame.setVisible(true);
 
             frame.btnNewButton.addActionListener(new ActionListener() {
@@ -76,7 +80,7 @@ public class Order extends JFrame {
                     Spiciness = frame.slider.getValue();
                     String a, b, c;
                     if (Tonkostu) {
-                        a = "Tonkostu";
+                        a = "Tonkotsu";
                     } else if (Shoyu) {
                         a = "Shoyu";
                     } else {
@@ -92,11 +96,11 @@ public class Order extends JFrame {
                     }
 
                     if (No) {
-                        c = "No";
+                        c = "No please";
                     } else if (Alittle) {
-                        c = "A little";
+                        c = "Just a little";
                     } else {
-                        c = "A lot";
+                        c = "A lot!";
                     }
                     System.out.println(Spiciness);
                     Ramen ramen = new Ramen(a, b, c, Nori, Chashu, Egg, Spiciness);
@@ -126,7 +130,7 @@ public class Order extends JFrame {
 
                     String a, b, c;
                     if (Tonkostu) {
-                        a = "Tonkostu";
+                        a = "Tonkotsu";
                     } else if (Shoyu) {
                         a = "Shoyu";
                     } else {
@@ -142,11 +146,11 @@ public class Order extends JFrame {
                     }
 
                     if (No) {
-                        c = "No";
+                        c = "No please";
                     } else if (Alittle) {
-                        c = "A little";
+                        c = "Just a little";
                     } else {
-                        c = "A lot";
+                        c = "A lot!";
                     }
 
                     Ramen ramen = new Ramen(a, b, c, Nori, Chashu, Egg, Spiciness);

@@ -1,8 +1,3 @@
-//package service;
-
-//import entity.*;
-//import interfaces.*;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -16,6 +11,10 @@ import java.util.Date;
  * @author: Jiaxuan Peng
  * @date: 2020/03/29 18:47
  * @description: Read and write the .txt files.
+ *
+ * @update 2020-04-14 Jiaxuan Peng
+ * @update 2020-05-04 Qi Lin
+ *         exchanged two indexes 14 and 15 in line 262
  */
 
 public class DataClass implements DataService {
@@ -262,7 +261,7 @@ public class DataClass implements DataService {
                                 Integer.parseInt(strings.get(12)), Integer.parseInt(strings.get(13)));
                         Bill bill = new Bill(
                                 ramen, addon, Boolean.parseBoolean(strings.get(1)), Boolean.parseBoolean(strings.get(0)),
-                                Boolean.parseBoolean(strings.get(14)), Float.parseFloat(strings.get(15)),
+                                Boolean.parseBoolean(strings.get(15)), Float.parseFloat(strings.get(14)),
                                 sdf.parse(strings.get(2)));
                         bills.add(bill);
                         num = 0;
@@ -273,7 +272,7 @@ public class DataClass implements DataService {
                 if (num > 0) {
                     linenum++;
                     if (linenum == 2 || linenum >= 8 && linenum <= 9 || linenum == 15 ||
-                            linenum >= 17 && linenum <= 20 || linenum == 23 || linenum == 25) {
+                            linenum >= 17 && linenum <= 20 || linenum == 23 || linenum == 22) {
                         str = line.split("\\s+");
                         strings.add(str[2]);
                     } else if (linenum == 3 || linenum >= 12 && linenum <= 14) {
@@ -386,8 +385,10 @@ public class DataClass implements DataService {
      *
      * @param bill the Bill entity that has basic information
      * @return the presentation style of bill
+     * @exception Exception if the price in the bill isn't equal to
+     * the price calculated in this method, it will throw an exception.
      */
-    public String printBill(Bill bill) {
+    public String printBill(Bill bill) throws Exception{
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String[] str = new String[4];
         if (!bill.isTakeAway()) {
@@ -410,41 +411,54 @@ public class DataClass implements DataService {
         } else {
             str[3] = "0";
         }
-        double price = bill.getAddon().getNoriCost() * bill.getAddon().getExtraNori() +
-                bill.getAddon().getExtraEgg() * bill.getAddon().getEggCost() +
-                bill.getAddon().getBambooCost() * bill.getAddon().getBamboo() +
-                bill.getAddon().getChashuCost() * bill.getAddon().getExtraChashu() + 9.99;
-        return "***************************************************\n" +
-                "\t\t Ramen Restaurant" +
-                "\nLogin  : " + bill.isLogin() +
-                "\nDining : " + str[0] +
-                "\nDate   : " + sdf.format(bill.getTime()) +
-                "\n---------------------------------------------------" +
-                "\n    Item\t\t      Quantity     Amount" +
-                "\n---Ramen-------------------------------------------" +
-                "\n    Soup\t\t\t" + bill.getRamen().getSoup() +
-                "\n    Noodles\t\t\t" + bill.getRamen().getNoodles() +
-                "\n    Onion\t\t\t" + bill.getRamen().getOnion() +
-                "\n---Jardiniere--------------------------------------" +
-                "\n    Nori\t\t\t " + str[1] + "\t    0.0" +
-                "\n    Chashu\t\t\t " + str[2] + "\t    0.0" +
-                "\n    Egg\t\t\t\t " + str[3] + "\t    0.0" +
-                "\n    Spiciness\t\t\t " + bill.getRamen().getSpiciness() +
-                "\n---Add-ons-----------------------------------------" +
-                "\n    ExtraNori\t\t\t " + bill.getAddon().getExtraNori() + "\t    " +
-                bill.getAddon().getNoriCost() * bill.getAddon().getExtraNori() +
-                "\n    ExtraEgg\t\t\t " + bill.getAddon().getExtraEgg() + "\t    " +
-                bill.getAddon().getExtraEgg() * bill.getAddon().getEggCost() +
-                "\n    Bamboo\t\t\t " + bill.getAddon().getBamboo() + "\t    " +
-                bill.getAddon().getBambooCost() * bill.getAddon().getBamboo() +
-                "\n    ExtraChashu\t\t\t " + bill.getAddon().getExtraChashu() + "\t    " +
-                bill.getAddon().getChashuCost() * bill.getAddon().getExtraChashu() +
-                "\n---------------------------------------------------" +
-                "\nTotal\t :\t\t\t\t   " + String.format("%.2f", price) +
-                "\nUseStamp :\t\t\t\t   " + bill.isUseStamp() +
-                "\n---------------------------------------------------" +
-                "\nTotal Price:\t\t\t\t   " + bill.getPrice() +
-                "\n***************************************************\n";
+        Addon addon = new RamenClass().getAddonInfo();
+        float price = addon.getNoriCost() * bill.getAddon().getExtraNori() +
+                bill.getAddon().getExtraEgg() * addon.getEggCost() +
+                addon.getBambooCost() * bill.getAddon().getBamboo() +
+                addon.getChashuCost() * bill.getAddon().getExtraChashu() + 9.99f;
+        if (price!=bill.getPrice()){
+            throw new Exception("Price check error!!");
+        }
+        else {
+            float actualPrice;
+            if (bill.isUseStamp()) {
+                actualPrice=0.0f;
+            }
+            else {
+                actualPrice=price;
+            }
+            return "***************************************************\n" +
+                    "\t\t Ramen Restaurant" +
+                    "\nLogin  : " + bill.isLogin() +
+                    "\nDining : " + str[0] +
+                    "\nDate   : " + sdf.format(bill.getTime()) +
+                    "\n---------------------------------------------------" +
+                    "\n    Item\t\t      Quantity     Amount" +
+                    "\n---Ramen-------------------------------------------" +
+                    "\n    Soup\t\t\t" + bill.getRamen().getSoup() +
+                    "\n    Noodles\t\t\t" + bill.getRamen().getNoodles() +
+                    "\n    Onion\t\t\t" + bill.getRamen().getOnion() +
+                    "\n---Jardiniere--------------------------------------" +
+                    "\n    Nori\t\t\t " + str[1] + "\t    0.0" +
+                    "\n    Chashu\t\t\t " + str[2] + "\t    0.0" +
+                    "\n    Egg\t\t\t\t " + str[3] + "\t    0.0" +
+                    "\n    Spiciness\t\t\t " + bill.getRamen().getSpiciness() +
+                    "\n---Add-ons-----------------------------------------" +
+                    "\n    ExtraNori\t\t\t " + bill.getAddon().getExtraNori() + "\t    " +
+                    addon.getNoriCost() * bill.getAddon().getExtraNori() +
+                    "\n    ExtraEgg\t\t\t " + bill.getAddon().getExtraEgg() + "\t    " +
+                    addon.getEggCost() * bill.getAddon().getExtraEgg() +
+                    "\n    Bamboo\t\t\t " + bill.getAddon().getBamboo() + "\t    " +
+                    addon.getBambooCost() * bill.getAddon().getBamboo() +
+                    "\n    ExtraChashu\t\t\t " + bill.getAddon().getExtraChashu() + "\t    " +
+                    addon.getChashuCost() * bill.getAddon().getExtraChashu() +
+                    "\n---------------------------------------------------" +
+                    "\nTotal\t :\t\t\t\t   " + String.format("%.2f", price) +
+                    "\nUseStamp :\t\t\t\t   " + bill.isUseStamp() +
+                    "\n---------------------------------------------------" +
+                    "\nTotal Price:\t\t\t\t   " + actualPrice +
+                    "\n***************************************************\n";
+        }
     }
 
 }

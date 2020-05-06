@@ -45,6 +45,7 @@ public class Regist extends JFrame {
     public void runRegist(Bill bill) {
         try {
             Regist frame = new Regist();
+            frame.setLocationRelativeTo(null);
             frame.setVisible(true);
 
             frame.btnNewButton.addActionListener(new ActionListener() {

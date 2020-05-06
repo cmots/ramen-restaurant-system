@@ -40,6 +40,7 @@ public class RegistSuccess extends JFrame {
     public void runSuccess(int userID, Bill bill) {
         try {
             RegistSuccess frame = new RegistSuccess(userID);
+            frame.setLocationRelativeTo(null);
             frame.setVisible(true);
 
             frame.btnNewButton_1.addActionListener(new ActionListener() {

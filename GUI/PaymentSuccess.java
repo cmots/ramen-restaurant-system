@@ -1,3 +1,9 @@
+/**
+ * @update: 2020-05-01 Qi Lin
+ *          Set the initial value of amountPaid to 0 (line 84-87)
+ *          Only when isUseStamp() is false will set the value of amountPaid to the bill price
+ *
+ */
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -32,9 +38,10 @@ public class PaymentSuccess extends JFrame {
         });
     }
 
-    public void runPaySuccess(Bill bill,int userID) {
+    public void runPaySuccess(Bill bill, int userID) {
         try {
-            PaymentSuccess frame = new PaymentSuccess(bill,userID);
+            PaymentSuccess frame = new PaymentSuccess(bill, userID);
+            frame.setLocationRelativeTo(null);
             frame.setVisible(true);
 
             frame.btnNewButton_1.addActionListener(new ActionListener() {
@@ -55,7 +62,7 @@ public class PaymentSuccess extends JFrame {
     /**
      * Create the frame.
      */
-    public PaymentSuccess(Bill bill,int userID) {
+    public PaymentSuccess(Bill bill, int userID) {
         setTitle("Payment Success");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(700, 300, 800, 500);
@@ -74,7 +81,10 @@ public class PaymentSuccess extends JFrame {
         lblNewLabel_1.setBounds(76, 126, 576, 58);
         contentPane.add(lblNewLabel_1);
 
-        float amountPaid = bill.getPrice();
+        float amountPaid = 0;
+        if (bill.isUseStamp() == false) {
+            amountPaid = bill.getPrice();
+        }
 
         JLabel lblNewLabel_2 = new JLabel("Actual amount paid: " + amountPaid);
         lblNewLabel_2.setFont(new Font("Times New Roman", Font.BOLD, 25));
@@ -82,12 +92,11 @@ public class PaymentSuccess extends JFrame {
         contentPane.add(lblNewLabel_2);
 
         JLabel lblNewLabel_3;
-        if(userID!=0) {
+        if (userID != 0) {
             int stampsNo = new UserClass().login(userID).getStamp();
 
             lblNewLabel_3 = new JLabel("Remainder virtual stamps: " + stampsNo);
-        }
-        else{
+        } else {
             lblNewLabel_3 = new JLabel("You haven't login");
         }
         lblNewLabel_3.setFont(new Font("Times New Roman", Font.BOLD, 25));

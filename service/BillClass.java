@@ -1,9 +1,13 @@
 import java.util.Date;
 
 /**
- * @author:
- * @date:
+ * @author: Qichen Sun
+ * @date: 2020/04/18
  * @description:
+ *
+ * @update: 2020-05-01 Qi Lin
+ *          modified the condition of updating the stamp (line 39-46)
+ *          to fix the bug that always update the stamp amount even if failed to pay by stamps.
  */
 
 public class BillClass implements BillService {
@@ -29,19 +33,18 @@ public class BillClass implements BillService {
 
         DataClass dataService = new DataClass();
         Addon addon = ramenService.getAddonInfo();
-        bill.setPrice((float) 9.99 + addon.getNoriCost() * addon.getExtraNori() + addon.getEggCost() * addon.getExtraEgg()
-                + addon.getBambooCost() * addon.getBamboo() + addon.getChashuCost() * addon.getExtraChashu());
+        bill.setPrice((float) 9.99 + addon.getNoriCost() * bill.getAddon().getExtraNori() + addon.getEggCost() * bill.getAddon().getExtraEgg()
+                + addon.getBambooCost() * bill.getAddon().getBamboo() + addon.getChashuCost() * bill.getAddon().getExtraChashu());
+
         if (bill.isLogin() == true) {
             User user = userService.login(userID);
+            if (bill.isUseStamp() == true) {
+                boolean isUseStamps = userService.useStamps(userID);
+            } else if (bill.isUseStamp() == false) {
+                userService.updateStamps(userID);
+            }
         }
-        /*3. if bill.useStamp == true, use UserService.useStamps and judge the return value*/
 
-        if (bill.isLogin() == true && bill.isUseStamp() == true) {
-            boolean isUseStamps = userService.useStamps(userID);
-        }
-        if (bill.isLogin() == true && (bill.isUseStamp() == false || userService.useStamps(userID) == false)) {
-            userService.updateStamps(userID);
-        }
         bill.setTime(new Date());
 
         dataService.addBill(bill);

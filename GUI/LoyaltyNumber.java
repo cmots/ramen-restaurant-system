@@ -46,6 +46,7 @@ public class LoyaltyNumber extends JFrame {
     public void runLoyalty(Bill bill) {
         try {
             LoyaltyNumber frame = new LoyaltyNumber();
+            frame.setLocationRelativeTo(null);
             frame.setVisible(true);
 
             frame.btnNewButton.addActionListener(new ActionListener() {
